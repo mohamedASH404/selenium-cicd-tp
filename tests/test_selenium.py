@@ -60,4 +60,4 @@ assert driver.find_element(By.ID, "calculate").is_displayed()
 def test_addition(self, driver):
 """Test 2: Tester l'addition"""
 file_path = os.path.abspath("../src/index.html")
-driver.get(f'file://{file_path}")
+driver.get(f"file://{file_path}")
