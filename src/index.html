@@ -1,27 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculatrice Simple</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculatrice Simple</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-<h1>Calculatrice Simple</h1>
-<form id="calculator">
-<input type="number" id="num1" placeholder="Premier nombre" required>
-<select id="operation">
-<option value="add">Addition (+)</option>
-<option value="subtract">Soustraction (-)</option>
-<option value="multiply">Multiplication (×)</option>
-<option value="divide">Division (÷)</option>
-</select>
-<input type="number" id="num2" placeholder="Deuxième nombre" required>
-<button type="submit" id="calculate">Calculer</button>
-</form>
-<div id="result"></div>
-</div>
-<script src="script.js"></script>
+  <div class="container">
+    <h1>Calculatrice Simple</h1>
+    <form id="calculator">
+      <input type="number" id="num1" placeholder="Premier nombre" required>
+      
+      <select id="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Soustraction (-)</option>
+        <option value="multiply">Multiplication (×)</option>
+        <option value="divide">Division (÷)</option>
+      </select>
+      
+      <input type="number" id="num2" placeholder="Deuxième nombre" required>
+      
+      <button type="submit" id="calculate">Calculer</button>
+    </form>
+
+    <div id="result"></div>
+
+    <!-- Historique (facultatif) -->
+    <!-- <div id="history">
+      <h2>Historique</h2>
+      <ul id="history-list"></ul>
+    </div> -->
+
+  </div>
+  
+  <script>
+    document.getElementById('calculator').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const operation = document.getElementById('operation').value;
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(num1) || isNaN(num2)) {
+        resultDiv.textContent = "Veuillez entrer deux nombres valides.";
+        return;
+      }
+
+      let result;
+      let operatorSymbol;
+
+      switch (operation) {
+        case 'add':
+          result = num1 + num2;
+          operatorSymbol = '+';
+          break;
+        case 'subtract':
+          result = num1 - num2;
+          operatorSymbol = '-';
+          break;
+        case 'multiply':
+          result = num1 * num2;
+          operatorSymbol = '×';
+          break;
+        case 'divide':
+          if (num2 === 0) {
+            resultDiv.textContent = "Erreur : Division par zéro.";
+            return;
+          }
+          result = num1 / num2;
+          operatorSymbol = '÷';
+          break;
+        default:
+          resultDiv.textContent = "Opération non reconnue.";
+          return;
+      }
+
+      resultDiv.textContent = `${num1} ${operatorSymbol} ${num2} = ${result}`;
+    });
+  </script>
 </body>
 </html>
